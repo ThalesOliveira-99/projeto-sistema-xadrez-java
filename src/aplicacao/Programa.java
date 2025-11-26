@@ -1,12 +1,13 @@
 package aplicacao;
 
-import tabuleiro.Mesa;
+import xadrez.PartidaXadrez;
 
 public class Programa {
 
 	public static void main(String[] args) {
 		
-		Mesa mesa = new Mesa(8, 8);
+		PartidaXadrez partidaXadrez = new PartidaXadrez();
+		UI.escreverMesa(partidaXadrez.getPecas());
 	}
 
 }
