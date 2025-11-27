@@ -5,7 +5,7 @@ public class Mesa {
 	private int linhas;
 	private int colunas;
 	private Peca[][] pecas;
-	
+
 	public Mesa(int linhas, int colunas) {
 		this.linhas = linhas;
 		this.colunas = colunas;
@@ -27,15 +27,18 @@ public class Mesa {
 	public void setColunas(int colunas) {
 		this.colunas = colunas;
 	}
-	
+
 	public Peca peca(int linha, int coluna) {
 		return pecas[linha][coluna];
 	}
-	
-	//Sobrecarga
+
+	// Sobrecarga
 	public Peca peca(Posicao posicao) {
 		return pecas[posicao.getLinha()][posicao.getColuna()];
 	}
-	
-	
+
+	public void ponto(Peca peca, Posicao posicao) {
+		pecas[posicao.getLinha()][posicao.getColuna()] = peca;
+		peca.posicao = posicao;
+	}
 }
