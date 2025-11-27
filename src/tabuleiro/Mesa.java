@@ -46,6 +46,20 @@ public class Mesa {
 		pecas[posicao.getLinha()][posicao.getColuna()] = peca;
 		peca.posicao = posicao;
 	}
+	
+	public Peca removendoPeca(Posicao posicao) {
+		//Programação defensiva
+		if (!posicaoExistente(posicao)) {
+			throw new TabuleiroException("Posição não está no tabuleiro");
+		}
+		if (peca(posicao) == null) {
+			return null;
+		}
+		Peca aux = peca(posicao);
+		aux.posicao = null;
+		pecas[posicao.getLinha()][posicao.getColuna()] = null;
+		return aux;
+	}
 
 	private boolean posicaoExistente(int linha, int coluna) {
 		return linha >= 0 && coluna < colunas && coluna >= 0 && coluna < colunas;
@@ -61,4 +75,6 @@ public class Mesa {
 		}
 		return peca(posicao) != null;
 	}
+	
+	
 }
