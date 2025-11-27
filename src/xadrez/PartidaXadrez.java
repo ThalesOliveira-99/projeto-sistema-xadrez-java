@@ -30,8 +30,8 @@ public class PartidaXadrez {
 	}
 	
 	private void configuracaoInicial() {
-		mesa.ponto(new Torre(mesa, Cor.WHITE), new Posicao(2,1));
-		mesa.ponto(new Rei(mesa, Cor.BLACK), new Posicao(0,4));
-		mesa.ponto(new Rei(mesa, Cor.WHITE), new Posicao(7,4));
+		mesa.colocarPeca(new Torre(mesa, Cor.WHITE), new Posicao(2,1));
+		mesa.colocarPeca(new Rei(mesa, Cor.BLACK), new Posicao(0,1));
+		mesa.colocarPeca(new Rei(mesa, Cor.WHITE), new Posicao(7,4));
 	}
 }
