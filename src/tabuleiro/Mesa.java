@@ -38,6 +38,7 @@ public class Mesa {
 		return pecas[posicao.getLinha()][posicao.getColuna()];
 	}
 
+	//PlacePiece
 	public void colocarPeca(Peca peca, Posicao posicao) {
 		if (temUmaPeca(posicao)) {
 			throw new TabuleiroException("Já existe uma peça posicionada " + posicao);
