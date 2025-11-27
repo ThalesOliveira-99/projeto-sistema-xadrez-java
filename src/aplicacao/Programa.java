@@ -7,7 +7,7 @@ public class Programa {
 	public static void main(String[] args) {
 		
 		PartidaXadrez partidaXadrez = new PartidaXadrez();
-		UI.escreverMesa(partidaXadrez.getPecas());
+		UI.escreverTabuleiro(partidaXadrez.getPecas());
 	}
 
 }

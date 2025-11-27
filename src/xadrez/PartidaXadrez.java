@@ -11,8 +11,10 @@ public class PartidaXadrez {
 	public PartidaXadrez() {
 		// É nesta classe que será que o tabuleiro será 8x8
 		mesa = new Mesa(8, 8);
-		//Para chamar o método configuracaoInicial, tem que ser chamado no construtor da classe 
-		// Assim que for iniciado o programa será iniciado uma mesa 8x8 com e chamará o método
+		// Para chamar o método configuracaoInicial, tem que ser chamado no construtor
+		// da classe
+		// Assim que for iniciado o programa será iniciado uma mesa 8x8 com e chamará o
+		// método
 		configuracaoInicial();
 	}
 
@@ -27,16 +29,26 @@ public class PartidaXadrez {
 		}
 		return mat;
 	}
-	
-	//placeNewPiece
+
+	// placeNewPiece
 	private void pecaPosicaoNova(char coluna, int linha, PecasXadrez peca) {
 		mesa.colocarPeca(peca, new XadrezPosicao(coluna, linha).toPosicao());
 	}
-	
-	//initialSetup
+
+	// initialSetup
 	private void configuracaoInicial() {
-		pecaPosicaoNova('b', 6, new Torre(mesa, Cor.WHITE));
-		pecaPosicaoNova('e', 8, new Rei(mesa, Cor.BLACK));
-		pecaPosicaoNova('e', 1, new Rei(mesa, Cor.WHITE));
+		pecaPosicaoNova('c', 1, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('c', 2, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('d', 2, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('e', 2, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('e', 1, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('d', 1, new Rei(mesa, Cor.WHITE));
+
+		pecaPosicaoNova('c', 7, new Torre(mesa, Cor.BLACK));
+		pecaPosicaoNova('c', 8, new Torre(mesa, Cor.BLACK));
+		pecaPosicaoNova('d', 7, new Torre(mesa, Cor.BLACK));
+		pecaPosicaoNova('e', 7, new Torre(mesa, Cor.BLACK));
+		pecaPosicaoNova('e', 8, new Torre(mesa, Cor.BLACK));
+		pecaPosicaoNova('d', 8, new Rei(mesa, Cor.BLACK));
 	}
 }
