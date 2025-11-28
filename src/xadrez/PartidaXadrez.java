@@ -47,10 +47,16 @@ public class PartidaXadrez {
 		return capturadaPeca;
 	}
 	
+	
+	//validateSourcePosition
 	private void validarProcuraPosicao(Posicao posicao) {
 		if (!mesa.posicaoExistente(posicao)) {
 			throw new XadrezException("Não existe peça na posição de origem");
 		} 
+		if (mesa.peca(posicao).temUmPossivelMovimento()) {
+			throw new XadrezException("Não existe possíveis movimentos para a peça escolhida");
+		}
+		
 	}
 
 	// placeNewPiece
@@ -74,4 +80,5 @@ public class PartidaXadrez {
 		pecaPosicaoNova('e', 8, new Torre(mesa, Cor.BLACK));
 		pecaPosicaoNova('d', 8, new Rei(mesa, Cor.BLACK));
 	}
+	
 }
