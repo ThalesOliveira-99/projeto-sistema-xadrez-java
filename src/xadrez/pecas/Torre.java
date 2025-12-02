@@ -29,7 +29,6 @@ public class Torre extends PecasXadrez {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.setLinha(p.getLinha() - 1);
 		}
-
 		if (getMesa().posicaoExistente(p) && existeAlgumaPeçaOponente(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
@@ -41,7 +40,6 @@ public class Torre extends PecasXadrez {
 			p.setColuna(p.getColuna() - 1);
 			;
 		}
-
 		if (getMesa().posicaoExistente(p) && existeAlgumaPeçaOponente(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
@@ -53,7 +51,6 @@ public class Torre extends PecasXadrez {
 			p.setColuna(p.getColuna() + 1);
 			;
 		}
-
 		if (getMesa().posicaoExistente(p) && existeAlgumaPeçaOponente(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}

@@ -34,7 +34,7 @@ public abstract class Peca {
 	public boolean temUmPossivelMovimento() {
 		boolean[][] mat = possiveisMovimentos();
 		for (int i=0; i<mat.length; i++) {
-			for (int j=0; j<mat.length; j++) {
+			for (int j=0; j<mat[i].length; j++) {
 				if(mat[i][j]) {
 					return true;
 				}
