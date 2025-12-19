@@ -8,16 +8,28 @@ import xadrez.pecas.Torre;
 
 public class PartidaXadrez {
 
+	private int turno;
+	private Cor jogadorAtual;
 	private Mesa mesa;
 
 	public PartidaXadrez() {
 		// É nesta classe que será que o tabuleiro será 8x8
 		mesa = new Mesa(8, 8);
+		turno = 1;
+		jogadorAtual = Cor.WHITE;
 		// Para chamar o método configuracaoInicial, tem que ser chamado no construtor
 		// da classe
 		// Assim que for iniciado o programa será iniciado uma mesa 8x8 com e chamará o
 		// método
 		configuracaoInicial();
+	}
+	
+	public int getTurno() {
+		return turno;
+	}
+	
+	public Cor getJogadorAtual() {
+		return jogadorAtual;
 	}
 
 	// Este método terá que retornar uma matriz de peças de xadrez corresponde a
@@ -45,6 +57,7 @@ public class PartidaXadrez {
 		validarProcuraPosicao(origem);
 		validarDestinoPosicao(origem, destino);
 		Peca capturadaPeca = fazerMovimento(origem, destino);
+		proximoTurno();
 		return (PecasXadrez) capturadaPeca;
 	}
 
@@ -57,18 +70,22 @@ public class PartidaXadrez {
 
 	// validateSourcePosition
 	private void validarProcuraPosicao(Posicao posicao) {
-	    // 1. Verifica limites do tabuleiro
+	    //  Verifica limites do tabuleiro
 	    if (!mesa.posicaoExistente(posicao)) {
 	        throw new XadrezException("Não existe posição no tabuleiro");
 	    }
 	    
-	    // 2. VERIFICAÇÃO QUE FALTA: A casa está vazia?
+	    if (jogadorAtual != ((PecasXadrez)mesa.peca(posicao)).getCor()) {
+	    	throw new XadrezException("A peça escolhida não é sua");
+	    }
+	    
+	    // VERIFICAÇÃO QUE FALTA: A casa está vazia?
 	    // Se você não tiver o método temPeca, use a verificação de null
 	    if (mesa.peca(posicao) == null) {
 	        throw new XadrezException("Não existe peça na posição de origem");
 	    }
 	    
-	    // 3. Verifica se a peça está travada
+	    // Verifica se a peça está travada
 	    if (!mesa.peca(posicao).temUmPossivelMovimento()) {
 	        throw new XadrezException("Não existe possíveis movimentos para a peça escolhida");
 	    }
@@ -80,6 +97,12 @@ public class PartidaXadrez {
 		}
 	}
 
+	private void proximoTurno() {
+		turno++;
+		//Expressão condicional alternária
+		jogadorAtual = (jogadorAtual == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
+	}
+	
 	// placeNewPiece
 	private void pecaPosicaoNova(char coluna, int linha, PecasXadrez peca) {
 		mesa.colocarPeca(peca, new XadrezPosicao(coluna, linha).toPosicao());
