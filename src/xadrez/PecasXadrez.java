@@ -28,6 +28,6 @@ public abstract class PecasXadrez extends Peca {
 		// Foi realizado um downcast para poder funcionar
 		// (PecasXadrez)getMesa().peca(posicao)
 		PecasXadrez p = (PecasXadrez)getMesa().peca(posicao);
-		return p != null && p.getCor() !=  cor;
+		return p != null && p.getCor() != cor;
 	}
 }

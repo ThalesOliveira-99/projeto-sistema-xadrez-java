@@ -31,36 +31,51 @@ public class PartidaXadrez {
 		}
 		return mat;
 	}
-	
+
+	public boolean[][] possiveisMovimentos(XadrezPosicao posicaoOrigem) {
+		Posicao posicao = posicaoOrigem.toPosicao();
+		validarProcuraPosicao(posicao);
+		return mesa.peca(posicao).possiveisMovimentos();
+
+	}
+
 	public PecasXadrez executaMovimentoXadrez(XadrezPosicao posicaoOrigem, XadrezPosicao posicaoDestino) {
 		Posicao origem = posicaoOrigem.toPosicao();
 		Posicao destino = posicaoDestino.toPosicao();
 		validarProcuraPosicao(origem);
 		validarDestinoPosicao(origem, destino);
 		Peca capturadaPeca = fazerMovimento(origem, destino);
-		return (PecasXadrez)capturadaPeca;
+		return (PecasXadrez) capturadaPeca;
 	}
-	
+
 	private Peca fazerMovimento(Posicao origem, Posicao destino) {
 		Peca p = mesa.removendoPeca(origem);
 		Peca capturadaPeca = mesa.removendoPeca(destino);
 		mesa.colocarPeca(p, destino);
 		return capturadaPeca;
 	}
-	
-	//validateSourcePosition
+
+	// validateSourcePosition
 	private void validarProcuraPosicao(Posicao posicao) {
-		if (!mesa.posicaoExistente(posicao)) {
-			throw new XadrezException("Não existe peça na posição de origem");
-		} 
-		if (!mesa.peca(posicao).temUmPossivelMovimento()) {
-			throw new XadrezException("Não existe possíveis movimentos para a peça escolhida");
-		}
-		
+	    // 1. Verifica limites do tabuleiro
+	    if (!mesa.posicaoExistente(posicao)) {
+	        throw new XadrezException("Não existe posição no tabuleiro");
+	    }
+	    
+	    // 2. VERIFICAÇÃO QUE FALTA: A casa está vazia?
+	    // Se você não tiver o método temPeca, use a verificação de null
+	    if (mesa.peca(posicao) == null) {
+	        throw new XadrezException("Não existe peça na posição de origem");
+	    }
+	    
+	    // 3. Verifica se a peça está travada
+	    if (!mesa.peca(posicao).temUmPossivelMovimento()) {
+	        throw new XadrezException("Não existe possíveis movimentos para a peça escolhida");
+	    }
 	}
-	
+
 	private void validarDestinoPosicao(Posicao origem, Posicao destino) {
-		if(!mesa.peca(origem).possivelMovimento(destino)) {
+		if (!mesa.peca(origem).possivelMovimento(destino)) {
 			throw new XadrezException("A peça escolhida, não pode mover para a posição de destino");
 		}
 	}
@@ -69,7 +84,7 @@ public class PartidaXadrez {
 	private void pecaPosicaoNova(char coluna, int linha, PecasXadrez peca) {
 		mesa.colocarPeca(peca, new XadrezPosicao(coluna, linha).toPosicao());
 	}
-	
+
 	// initialSetup
 	private void configuracaoInicial() {
 		pecaPosicaoNova('c', 1, new Torre(mesa, Cor.WHITE));
@@ -86,5 +101,5 @@ public class PartidaXadrez {
 		pecaPosicaoNova('e', 8, new Torre(mesa, Cor.BLACK));
 		pecaPosicaoNova('d', 8, new Rei(mesa, Cor.BLACK));
 	}
-	
+
 }

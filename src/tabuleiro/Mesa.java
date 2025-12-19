@@ -63,6 +63,7 @@ public class Mesa {
 	}
 
 	private boolean posicaoExistente(int linha, int coluna) {
+
 		return linha >= 0 && linha < linhas && coluna >= 0 && coluna < colunas;
 	}
 
