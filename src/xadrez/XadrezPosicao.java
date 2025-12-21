@@ -8,7 +8,7 @@ public class XadrezPosicao {
 	private int linha;
 
 	public XadrezPosicao(char coluna, int linha) {
-		if(coluna < 'a' || coluna > 'h' || linha < 1 || linha >8) {
+		if(coluna < 'a' || coluna > 'h' || linha < 1 || linha > 8) {
 			throw new XadrezException("Erro de instanciação PecasXadrez. Valores válidos são de a1 até h8");
 		}
 		this.coluna = coluna;
@@ -28,7 +28,7 @@ public class XadrezPosicao {
 	} 
 	
 	protected static XadrezPosicao fromPosicao(Posicao posicao) {
-		return new XadrezPosicao((char)('a' - posicao.getColuna()), 8 - posicao.getLinha()); 
+		return new XadrezPosicao((char)('a' + posicao.getColuna()), 8 - posicao.getLinha()); 
 	}
 	
 	@Override 

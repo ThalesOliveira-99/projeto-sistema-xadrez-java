@@ -16,6 +16,10 @@ public abstract class PecasXadrez extends Peca {
 	public Cor getCor() {
 		return cor;
 	}
+	
+	public XadrezPosicao getXadrezPosicao() {
+		return XadrezPosicao.fromPosicao(posicao);
+	}
 
 	// Pois não haverá permissão para trocar a cor da peça seja modificada. Somente
 	// acessada
