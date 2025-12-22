@@ -16,6 +16,7 @@ public class PartidaXadrez {
 	private Cor jogadorAtual;
 	private Mesa mesa;
 	private boolean check;
+	private boolean checkMate;
 
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -40,11 +41,14 @@ public class PartidaXadrez {
 	public Cor getJogadorAtual() {
 		return jogadorAtual;
 	}
-	
+
 	public boolean getCheck() {
 		return check;
 	}
-
+	
+	public boolean getCheckMate() {
+		return checkMate;
+	}
 	// Este método terá que retornar uma matriz de peças de xadrez corresponde a
 	// PartidaXadrez
 	public PecasXadrez[][] getPecas() {
@@ -75,10 +79,15 @@ public class PartidaXadrez {
 			desfazerMovimento(origem, destino, capturadaPeca);
 			throw new XadrezException("Você não pode se colocar em check");
 		}
-
-		check = (testarCheck(oponente(jogadorAtual))) ? true : false;
 		
-		proximoTurno();
+		check = (testarCheck(oponente(jogadorAtual))) ? true : false;
+
+		if (testarCheck(oponente(jogadorAtual))) {
+			checkMate = true;
+		} else {
+			proximoTurno();
+		}
+		
 		return (PecasXadrez) capturadaPeca;
 	}
 
@@ -168,6 +177,32 @@ public class PartidaXadrez {
 		}
 		return false;
 	}
+	
+	private boolean testeCheckMate(Cor cor) {
+		if (!testarCheck(cor)) {
+			return false;
+		}
+		List<Peca> list = pecasNoTabuleiro.stream().filter(x -> ((PecasXadrez) x).getCor() == cor)
+				.collect(Collectors.toList());
+		for (Peca p : list) {
+			boolean[][] mat = p.possiveisMovimentos();
+			for(int i=0; i<mesa.getLinhas(); i++) {
+				for (int j=0; j<mesa.getColunas(); j++) {
+					if (mat[i][j]) {
+						Posicao origem = ((PecasXadrez)p).getXadrezPosicao().toPosicao();
+						Posicao destino = new Posicao(i,j);
+						Peca pecaCapturada = fazerMovimento(origem, destino);
+						boolean testarCheck = testarCheck(cor);
+						desfazerMovimento(origem, destino, pecaCapturada);
+						if(!testarCheck) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
 
 	// placeNewPiece
 	private void pecaPosicaoNova(char coluna, int linha, PecasXadrez peca) {
@@ -177,19 +212,12 @@ public class PartidaXadrez {
 
 	// initialSetup
 	private void configuracaoInicial() {
-		pecaPosicaoNova('c', 1, new Torre(mesa, Cor.WHITE));
-		pecaPosicaoNova('c', 2, new Torre(mesa, Cor.WHITE));
-		pecaPosicaoNova('d', 2, new Torre(mesa, Cor.WHITE));
-		pecaPosicaoNova('e', 2, new Torre(mesa, Cor.WHITE));
-		pecaPosicaoNova('e', 1, new Torre(mesa, Cor.WHITE));
-		pecaPosicaoNova('d', 1, new Rei(mesa, Cor.WHITE));
+		pecaPosicaoNova('h', 7, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('d', 1, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('e', 1, new Rei(mesa, Cor.WHITE));
 
-		pecaPosicaoNova('c', 7, new Torre(mesa, Cor.BLACK));
-		pecaPosicaoNova('c', 8, new Torre(mesa, Cor.BLACK));
-		pecaPosicaoNova('d', 7, new Torre(mesa, Cor.BLACK));
-		pecaPosicaoNova('e', 7, new Torre(mesa, Cor.BLACK));
-		pecaPosicaoNova('e', 8, new Torre(mesa, Cor.BLACK));
-		pecaPosicaoNova('d', 8, new Rei(mesa, Cor.BLACK));
+		pecaPosicaoNova('b', 8, new Torre(mesa, Cor.BLACK));
+		pecaPosicaoNova('a', 8, new Rei(mesa, Cor.BLACK));
 	}
 
 }
