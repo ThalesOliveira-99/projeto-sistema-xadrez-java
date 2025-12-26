@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import tabuleiro.Mesa;
 import tabuleiro.Peca;
 import tabuleiro.Posicao;
+import xadrez.pecas.Peao;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
 
@@ -214,12 +215,30 @@ public class PartidaXadrez {
 
 	// initialSetup
 	private void configuracaoInicial() {
-		pecaPosicaoNova('h', 7, new Torre(mesa, Cor.WHITE));
-		pecaPosicaoNova('d', 1, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('h', 1, new Torre(mesa, Cor.WHITE));
 		pecaPosicaoNova('e', 1, new Rei(mesa, Cor.WHITE));
+		pecaPosicaoNova('a', 1, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('a', 2, new Peao(mesa, Cor.WHITE));
+		pecaPosicaoNova('b', 2, new Peao(mesa, Cor.WHITE));
+		pecaPosicaoNova('c', 2, new Peao(mesa, Cor.WHITE));
+		pecaPosicaoNova('d', 2, new Peao(mesa, Cor.WHITE));
+		pecaPosicaoNova('e', 2, new Peao(mesa, Cor.WHITE));
+		pecaPosicaoNova('f', 2, new Peao(mesa, Cor.WHITE));
+		pecaPosicaoNova('g', 2, new Peao(mesa, Cor.WHITE));
+		pecaPosicaoNova('h', 2, new Peao(mesa, Cor.WHITE));
+		
 
-		pecaPosicaoNova('b', 8, new Torre(mesa, Cor.BLACK));
-		pecaPosicaoNova('a', 8, new Rei(mesa, Cor.BLACK));
+		pecaPosicaoNova('a', 8, new Torre(mesa, Cor.BLACK));
+		pecaPosicaoNova('e', 8, new Rei(mesa, Cor.BLACK));
+		pecaPosicaoNova('h', 8, new Torre(mesa, Cor.BLACK));
+		pecaPosicaoNova('a', 7, new Peao(mesa, Cor.BLACK));
+		pecaPosicaoNova('b', 7, new Peao(mesa, Cor.BLACK));
+		pecaPosicaoNova('c', 7, new Peao(mesa, Cor.BLACK));
+		pecaPosicaoNova('d', 7, new Peao(mesa, Cor.BLACK));
+		pecaPosicaoNova('e', 7, new Peao(mesa, Cor.BLACK));
+		pecaPosicaoNova('f', 7, new Peao(mesa, Cor.BLACK));
+		pecaPosicaoNova('g', 7, new Peao(mesa, Cor.BLACK));
+		pecaPosicaoNova('h', 7, new Peao(mesa, Cor.BLACK));
 	}
 
 }
