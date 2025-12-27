@@ -10,6 +10,7 @@ import tabuleiro.Posicao;
 import xadrez.pecas.Bispo;
 import xadrez.pecas.Cavalo;
 import xadrez.pecas.Peao;
+import xadrez.pecas.Rainha;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
 
@@ -85,7 +86,7 @@ public class PartidaXadrez {
 		
 		check = (testarCheck(oponente(jogadorAtual))) ? true : false;
 
-		if (testarCheck(oponente(jogadorAtual))) {
+		if (testeCheckMate(oponente(jogadorAtual))) {
 			checkMate = true;
 		} else {
 			proximoTurno();
@@ -217,13 +218,14 @@ public class PartidaXadrez {
 
 	// initialSetup
 	private void configuracaoInicial() {
-		pecaPosicaoNova('h', 1, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('a', 1, new Torre(mesa, Cor.WHITE));
 		pecaPosicaoNova('b', 1, new Cavalo(mesa, Cor.WHITE));
 		pecaPosicaoNova('c', 1, new Bispo(mesa, Cor.WHITE));
+		pecaPosicaoNova('d', 1, new Rainha(mesa, Cor.WHITE));
 		pecaPosicaoNova('e', 1, new Rei(mesa, Cor.WHITE));
 		pecaPosicaoNova('f', 1, new Bispo(mesa, Cor.WHITE));
 		pecaPosicaoNova('g', 1, new Cavalo(mesa, Cor.WHITE));
-		pecaPosicaoNova('a', 1, new Torre(mesa, Cor.WHITE));
+		pecaPosicaoNova('h', 1, new Torre(mesa, Cor.WHITE));
 		pecaPosicaoNova('a', 2, new Peao(mesa, Cor.WHITE));
 		pecaPosicaoNova('b', 2, new Peao(mesa, Cor.WHITE));
 		pecaPosicaoNova('c', 2, new Peao(mesa, Cor.WHITE));
@@ -237,6 +239,7 @@ public class PartidaXadrez {
 		pecaPosicaoNova('a', 8, new Torre(mesa, Cor.BLACK));
 		pecaPosicaoNova('b', 8, new Cavalo(mesa, Cor.BLACK));
 		pecaPosicaoNova('c', 8, new Bispo(mesa, Cor.BLACK));
+		pecaPosicaoNova('d', 8, new Rainha(mesa, Cor.BLACK));
 		pecaPosicaoNova('e', 8, new Rei(mesa, Cor.BLACK));
 		pecaPosicaoNova('f', 8, new Bispo(mesa, Cor.BLACK));
 		pecaPosicaoNova('g', 8, new Cavalo(mesa, Cor.BLACK));
