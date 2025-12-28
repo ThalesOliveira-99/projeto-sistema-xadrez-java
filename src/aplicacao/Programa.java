@@ -43,6 +43,10 @@ public class Programa {
 				if (partidaXadrez.getPromocao() != null ) {
 					System.out.print("Digite a peça para promoção (B/C/T/r): ");
 					String type = sc.nextLine();
+					while (!type.equals("B") && !type.equals("C") && !type.equals("r") && !type.equals("T")) {
+						System.out.print("Valor inválido! Digite a peça para promoção (B/C/T/r): ");
+						type = sc.nextLine();
+					}
 					partidaXadrez.substituirPecaPromocao(type);
 				}
 			} catch (XadrezException e) {
