@@ -1,5 +1,6 @@
 package xadrez;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ public class PartidaXadrez {
 	private boolean check;
 	private boolean checkMate;
 	private PecasXadrez enPassanteVulneravel;
+	private PecasXadrez promocao;
 
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -59,6 +61,10 @@ public class PartidaXadrez {
 		return enPassanteVulneravel;
 	}
 
+	public PecasXadrez getPromocao() {
+		return promocao;
+	}
+
 	// Este método terá que retornar uma matriz de peças de xadrez corresponde a
 	// PartidaXadrez
 	public PecasXadrez[][] getPecas() {
@@ -92,6 +98,14 @@ public class PartidaXadrez {
 			throw new XadrezException("Você não pode se colocar em check");
 		}
 
+		// Movimento especial: Promoção
+		promocao = null;
+		if (pecaMovida.getCor() == Cor.WHITE && destino.getLinha() == 0
+				|| pecaMovida.getCor() == Cor.BLACK && destino.getLinha() == 7) {
+			promocao = (PecasXadrez) mesa.peca(destino);
+			promocao = substituirPecaPromocao("r");
+		}
+
 		check = (testarCheck(oponente(jogadorAtual))) ? true : false;
 
 		if (testeCheckMate(oponente(jogadorAtual))) {
@@ -109,6 +123,33 @@ public class PartidaXadrez {
 		}
 
 		return (PecasXadrez) capturadaPeca;
+	}
+
+	public PecasXadrez substituirPecaPromocao(String type) {
+		if (promocao == null) {
+			 throw new IllegalStateException("Não há peça para ser promovida");
+		}
+		
+		if (!type.equals("B") && !type.equals("C") && !type.equals("r") && !type.equals("T")) {
+			throw new InvalidParameterException("Type inválido para promoção");
+		}
+		
+		Posicao pos = promocao.getXadrezPosicao().toPosicao();
+		Peca p = mesa.removendoPeca(pos);
+		pecasNoTabuleiro.remove(p);
+		
+		PecasXadrez novaPeca = novaPeca(type, promocao.getCor());
+		mesa.colocarPeca(novaPeca, pos);
+		pecasNoTabuleiro.add(novaPeca);
+		
+		return novaPeca;
+	}
+	
+	private PecasXadrez novaPeca(String type, Cor cor) {
+		if (type.equals("B")) return new Bispo(mesa, cor);
+		if (type.equals("C")) return new Cavalo(mesa, cor);
+		if (type.equals("r")) return new Rainha(mesa, cor);
+		return new Torre(mesa, cor);
 	}
 
 	private Peca fazerMovimento(Posicao origem, Posicao destino) {
@@ -191,7 +232,7 @@ public class PartidaXadrez {
 		// movimento especial: en passant
 		if (p instanceof Peao) {
 			if (origem.getColuna() != destino.getColuna() && pecasCapturada == enPassanteVulneravel) {
-				PecasXadrez peao = (PecasXadrez)mesa.removendoPeca(destino);
+				PecasXadrez peao = (PecasXadrez) mesa.removendoPeca(destino);
 				Posicao peaoPosicao;
 				if (p.getCor() == Cor.WHITE) {
 					peaoPosicao = new Posicao(3, destino.getColuna());
